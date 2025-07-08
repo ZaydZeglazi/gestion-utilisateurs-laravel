@@ -4,6 +4,17 @@
 <div class="max-w-4xl mx-auto py-10">
     <h2 class="text-2xl font-bold mb-4">Liste des utilisateurs</h2>
     <a href="{{ route('users.create') }}" class="bg-green-600 text-white px-4 py-2 mb-4 inline-block">+ Ajouter</a>
+    <form action="{{ route('users.index') }}" method="GET" class="mb-4 flex justify-between items-center">
+    <input type="text" name="search" placeholder="Rechercher par nom ou email"
+        value="{{ request('search') }}"
+        class="border border-gray-300 rounded px-4 py-2 w-full max-w-md focus:outline-none focus:ring">
+
+    <button type="submit"
+        class="ml-3 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Chercher
+    </button>
+</form>
+
 
     <table class="w-full table-auto border">
         <thead class="bg-gray-100">

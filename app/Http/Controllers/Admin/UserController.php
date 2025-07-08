@@ -33,17 +33,19 @@ public function store(Request $request)
 
 
 
-    public function index()
-    {
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
-    }
+   public function index(Request $request)
+{
+    $search = $request->input('search');
 
-    public function edit(User $user)
-    {
-        return view('admin.users.edit', compact('user'));
-    }
+    $users = \App\Models\User::query()
+        ->when($search, function ($query, $search) {
+            $query->where('name', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%");
+        })
+        ->get();
 
+    return view('admin.users.index', compact('users', 'search'));
+}
     public function update(Request $request, User $user)
     {
         $request->validate([
